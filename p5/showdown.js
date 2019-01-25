@@ -9,6 +9,8 @@ operates in conjunction with xbee input and game environment
 
 // Serial Communication
 var serialPortName = "COM8"; // Change this as needed
+var shotA = 0;
+var shotB = 0;
 
 function preload() {
 	//img = loadImage('assets/thisImage.png');
@@ -85,12 +87,8 @@ function dataReceived() {  //this function is called every time data is received
 	if(rawData.length>1)                      //check that there is something in the string
     {                   
 		// Read information 
-		shifterDist = JSON.parse(rawData).s1;       //the parameter value .s1 must match the parameter name created within the arduino file
-		orientX = JSON.parse(rawData).s2; 
-		orientY = JSON.parse(rawData).s3; 
-		orientZ = JSON.parse(rawData).s4;
-		
-		// STUB: Array support for JSON properties?
+		shotA = JSON.parse(rawData).s1;       //the parameter value .s1 must match the parameter name created within the arduino file
+		shotB = JSON.parse(rawData).s2; 
 	}
 }
 
