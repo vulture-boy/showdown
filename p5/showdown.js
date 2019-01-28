@@ -39,26 +39,26 @@ function preload() {
 	imgBody[2] = loadImage('assets/body-yellow/body-yellow.png');
 	imgBody[3] = loadImage('assets/body-red/body-red.png');
 	imgBody[4] = loadImage('assets/body-multi/body-multi.png');
-	imgLimb[0,0] = loadImage('assets/limbs-green/limb-1g.png');
-	imgLimb[0,1] = loadImage('assets/limbs-green/limb-2g.png');
-	imgLimb[0,2] = loadImage('assets/limbs-green/limb-3g.png');
-	imgLimb[0,3] = loadImage('assets/limbs-green/limb-4g.png');
-	imgLimb[1,0] = loadImage('assets/limbs-pink/limb-1p.png');
-	imgLimb[1,1] = loadImage('assets/limbs-pink/limb-2p.png');
-	imgLimb[1,2] = loadImage('assets/limbs-pink/limb-3p.png');
-	imgLimb[1,3] = loadImage('assets/limbs-pink/limb-4p.png');
-	imgLimb[2,0] = loadImage('assets/limbs-yellow/limb-1y.png');
-	imgLimb[2,1] = loadImage('assets/limbs-yellow/limb-2y.png');
-	imgLimb[2,2] = loadImage('assets/limbs-yellow/limb-3y.png');
-	imgLimb[2,3] = loadImage('assets/limbs-yellow/limb-4y.png');
-	imgLimb[3,0] = loadImage('assets/limbs-red/limb-1r.png');
-	imgLimb[3,1] = loadImage('assets/limbs-red/limb-2r.png');
-	imgLimb[3,2] = loadImage('assets/limbs-red/limb-3r.png');
-	imgLimb[3,3] = loadImage('assets/limbs-red/limb-4r.png');
-	imgLimb[4,0] = loadImage('assets/limbs-multi/limb-1m.png');
-	imgLimb[4,1] = loadImage('assets/limbs-multi/limb-2m.png');
-	imgLimb[4,2] = loadImage('assets/limbs-multi/limb-3m.png');
-	imgLimb[4,3] = loadImage('assets/limbs-multi/limb-4m.png');
+	imgLimb[0][0] = loadImage('assets/limbs-green/limb-1g.png');
+	imgLimb[0][1] = loadImage('assets/limbs-green/limb-2g.png');
+	imgLimb[0][2] = loadImage('assets/limbs-green/limb-3g.png');
+	imgLimb[0][3] = loadImage('assets/limbs-green/limb-4g.png');
+	imgLimb[1][0] = loadImage('assets/limbs-pink/limb-1p.png');
+	imgLimb[1][1] = loadImage('assets/limbs-pink/limb-2p.png');
+	imgLimb[1][2] = loadImage('assets/limbs-pink/limb-3p.png');
+	imgLimb[1][3] = loadImage('assets/limbs-pink/limb-4p.png');
+	imgLimb[2][0] = loadImage('assets/limbs-yellow/limb-1y.png');
+	imgLimb[2][1] = loadImage('assets/limbs-yellow/limb-2y.png');
+	imgLimb[2][2] = loadImage('assets/limbs-yellow/limb-3y.png');
+	imgLimb[2][3] = loadImage('assets/limbs-yellow/limb-4y.png');
+	imgLimb[3][0] = loadImage('assets/limbs-red/limb-1r.png');
+	imgLimb[3][1] = loadImage('assets/limbs-red/limb-2r.png');
+	imgLimb[3][2] = loadImage('assets/limbs-red/limb-3r.png');
+	imgLimb[3][3] = loadImage('assets/limbs-red/limb-4r.png');
+	imgLimb[4][0] = loadImage('assets/limbs-multi/limb-1m.png');
+	imgLimb[4][1] = loadImage('assets/limbs-multi/limb-2m.png');
+	imgLimb[4][2] = loadImage('assets/limbs-multi/limb-3m.png');
+	imgLimb[4][3] = loadImage('assets/limbs-multi/limb-4m.png');
 }
 
 function setup() {
@@ -81,7 +81,13 @@ function setup() {
 
 function draw() {
 	
-	background(255);
+	// Background
+	background(120,30,30);
+	noStroke();
+	fill(255,140,55);
+	rect(0,canv.height*0.7,canv.width,canv.height);
+	fill(225,150,120);
+	rect(0,canv.height*0.8,canv.width,canv.height);
 	
 	// TODO: Display background elements 
 	
@@ -102,6 +108,20 @@ function draw() {
 	} else if (gameState == 1) { // Ready / Gameplay
 	
 		// TODO: Characters enter scene?
+		
+		
+		var charPosB = canv.height * 0.6
+		var cS = 0.5;
+		
+		// Player 1
+		var charPosA = canv.width*0.2;
+		var fella = 0;
+		
+		drawCharacter(charPosA,charPosB,cS,fella);
+		charPosA = canv.width*0.7;
+		fella = 3;
+		drawCharacter(charPosA,charPosB,cS,fella);
+	
 		// TODO: Timed events
 			// Display 'ready?'
 			// Wait a random period of time
@@ -113,6 +133,22 @@ function draw() {
 	
 	// TODO: Display foreground elements (e.g. tumbleweed)
 	
+}
+
+function drawCharacter(charPosA,charPosB,cS,fella) {
+	
+	// Left Arm
+	image(imgLimb[fella][0], charPosA - imgLimb[fella][0].width * cS + 30, charPosB - imgLimb[fella][0].height *cS +35, imgLimb[fella][0].width *cS, imgLimb[fella][0].height *cS);
+	// Right Arm
+	image(imgLimb[fella][1], charPosA + imgBody[fella].width * cS - 40, charPosB + 20, imgLimb[fella][1].width *cS -5, imgLimb[fella][1].height *cS);
+	// Left Leg
+	image(imgLimb[fella][2], charPosA - imgLimb[fella][2].width * cS + 60, charPosB + imgLimb[fella][2].height *cS , imgLimb[fella][2].width *cS, imgLimb[fella][2].height *cS);
+	// Right Leg
+	image(imgLimb[fella][3], charPosA + imgBody[fella].width * cS - 40, charPosB + imgLimb[fella][3].height*cS + 20, imgLimb[fella][3].width *cS, imgLimb[fella][3].height *cS);
+	// Body
+	image(imgBody[fella], charPosA, charPosB, imgBody[fella].width *cS, imgBody[fella].height * cS);
+	// Head
+	image(imgHead[fella], charPosA - imgHead[fella].width *cS *0.25  , charPosB - imgHead[fella].height *cS, imgHead[fella].width *cS, imgHead[fella].height *cS);
 }
 
 function keyPressed() {
