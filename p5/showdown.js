@@ -11,10 +11,42 @@ operates in conjunction with xbee input and game environment
 var serialPortName = "COM8"; // Change this as needed
 var shotA = 0;
 var shotB = 0;
+var imgHead[5];
+var imgBody[5];
+var imgLimb[5,4];
 
 function preload() {
 	//img = loadImage('assets/thisImage.png');
-}
+	imgHead[0] = loadImage('assets/body-green/head-green.png');
+	imgHead[1] = loadImage('assets/body-pink/head-pink.png');
+	imgHead[2] = loadImage('assets/body-yellow/head-yellow.png');
+	imgHead[3] = loadImage('assets/body-red/head-red.png');
+	imgHead[4] = loadImage('assets/body-multi/head-multi.png');
+	imgBody[0] = loadImage('assets/body-green/body-green.png');
+	imgBody[1] = loadImage('assets/body-pink/body-pink.png');
+	imgBody[2] = loadImage('assets/body-yellow/body-yellow.png');
+	imgBody[3] = loadImage('assets/body-red/body-red.png');
+	imgBody[4] = loadImage('assets/body-multi/body-multi.png');
+	imgLimb[0,0] = loadImage('assets/limb-green/limb-1g.png');
+	imgLimb[0,1] = loadImage('assets/limb-green/limb-2g.png');
+	imgLimb[0,2] = loadImage('assets/limb-green/limb-3g.png');
+	imgLimb[0,3] = loadImage('assets/limb-green/limb-4g.png');
+	imgLimb[1,0] = loadImage('assets/limb-pink/limb-1p.png');
+	imgLimb[1,1] = loadImage('assets/limb-pink/limb-2p.png');
+	imgLimb[1,2] = loadImage('assets/limb-pink/limb-3p.png');
+	imgLimb[1,3] = loadImage('assets/limb-pink/limb-4p.png');
+	imgLimb[2,0] = loadImage('assets/limb-yellow/limb-1y.png');
+	imgLimb[2,1] = loadImage('assets/limb-yellow/limb-2y.png');
+	imgLimb[2,2] = loadImage('assets/limb-yellow/limb-3y.png');
+	imgLimb[2,3] = loadImage('assets/limb-yellow/limb-4y.png');
+	imgLimb[3,0] = loadImage('assets/limb-red/limb-1r.png');
+	imgLimb[3,1] = loadImage('assets/limb-red/limb-2r.png');
+	imgLimb[3,2] = loadImage('assets/limb-red/limb-3r.png');
+	imgLimb[3,3] = loadImage('assets/limb-red/limb-4r.png');
+	imgLimb[4,0] = loadImage('assets/limb-multi/limb-1m.png');
+	imgLimb[4,1] = loadImage('assets/limb-multi/limb-2m.png');
+	imgLimb[4,2] = loadImage('assets/limb-multi/limb-3m.png');
+	imgLimb[4,3] = loadImage('assets/limb-multi/limb-4m.png');
 
 function setup() {
 	
