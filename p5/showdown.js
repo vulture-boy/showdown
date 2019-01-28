@@ -11,6 +11,14 @@ operates in conjunction with xbee input and game environment
 var serialPortName = "COM8"; // Change this as needed
 var shotA = 0;
 var shotB = 0;
+
+// Game Stats
+var canv = 0;
+var playerStatus = [0,0]; // 0 - not hit, 1 - hit 
+var playerScore = [0,0]; // Points
+var playerScoreMax = 1; // Total to victory
+
+// Images
 var imgHead = [0,0,0,0,0];
 var imgBody = [0,0,0,0,0];
 var imgLimb = [ [0,0,0,0],
@@ -31,33 +39,34 @@ function preload() {
 	imgBody[2] = loadImage('assets/body-yellow/body-yellow.png');
 	imgBody[3] = loadImage('assets/body-red/body-red.png');
 	imgBody[4] = loadImage('assets/body-multi/body-multi.png');
-	imgLimb[0,0] = loadImage('assets/limb-green/limb-1g.png');
-	imgLimb[0,1] = loadImage('assets/limb-green/limb-2g.png');
-	imgLimb[0,2] = loadImage('assets/limb-green/limb-3g.png');
-	imgLimb[0,3] = loadImage('assets/limb-green/limb-4g.png');
-	imgLimb[1,0] = loadImage('assets/limb-pink/limb-1p.png');
-	imgLimb[1,1] = loadImage('assets/limb-pink/limb-2p.png');
-	imgLimb[1,2] = loadImage('assets/limb-pink/limb-3p.png');
-	imgLimb[1,3] = loadImage('assets/limb-pink/limb-4p.png');
-	imgLimb[2,0] = loadImage('assets/limb-yellow/limb-1y.png');
-	imgLimb[2,1] = loadImage('assets/limb-yellow/limb-2y.png');
-	imgLimb[2,2] = loadImage('assets/limb-yellow/limb-3y.png');
-	imgLimb[2,3] = loadImage('assets/limb-yellow/limb-4y.png');
-	imgLimb[3,0] = loadImage('assets/limb-red/limb-1r.png');
-	imgLimb[3,1] = loadImage('assets/limb-red/limb-2r.png');
-	imgLimb[3,2] = loadImage('assets/limb-red/limb-3r.png');
-	imgLimb[3,3] = loadImage('assets/limb-red/limb-4r.png');
-	imgLimb[4,0] = loadImage('assets/limb-multi/limb-1m.png');
-	imgLimb[4,1] = loadImage('assets/limb-multi/limb-2m.png');
-	imgLimb[4,2] = loadImage('assets/limb-multi/limb-3m.png');
-	imgLimb[4,3] = loadImage('assets/limb-multi/limb-4m.png');
+	imgLimb[0,0] = loadImage('assets/limbs-green/limb-1g.png');
+	imgLimb[0,1] = loadImage('assets/limbs-green/limb-2g.png');
+	imgLimb[0,2] = loadImage('assets/limbs-green/limb-3g.png');
+	imgLimb[0,3] = loadImage('assets/limbs-green/limb-4g.png');
+	imgLimb[1,0] = loadImage('assets/limbs-pink/limb-1p.png');
+	imgLimb[1,1] = loadImage('assets/limbs-pink/limb-2p.png');
+	imgLimb[1,2] = loadImage('assets/limbs-pink/limb-3p.png');
+	imgLimb[1,3] = loadImage('assets/limbs-pink/limb-4p.png');
+	imgLimb[2,0] = loadImage('assets/limbs-yellow/limb-1y.png');
+	imgLimb[2,1] = loadImage('assets/limbs-yellow/limb-2y.png');
+	imgLimb[2,2] = loadImage('assets/limbs-yellow/limb-3y.png');
+	imgLimb[2,3] = loadImage('assets/limbs-yellow/limb-4y.png');
+	imgLimb[3,0] = loadImage('assets/limbs-red/limb-1r.png');
+	imgLimb[3,1] = loadImage('assets/limbs-red/limb-2r.png');
+	imgLimb[3,2] = loadImage('assets/limbs-red/limb-3r.png');
+	imgLimb[3,3] = loadImage('assets/limbs-red/limb-4r.png');
+	imgLimb[4,0] = loadImage('assets/limbs-multi/limb-1m.png');
+	imgLimb[4,1] = loadImage('assets/limbs-multi/limb-2m.png');
+	imgLimb[4,2] = loadImage('assets/limbs-multi/limb-3m.png');
+	imgLimb[4,3] = loadImage('assets/limbs-multi/limb-4m.png');
+}
 
 function setup() {
 	
 	////// Canvas //////
 
 	// Setup the Canvas based on the window dimensions
-	var canv = createCanvas(windowWidth, windowHeight);
+	canv = createCanvas(windowWidth, windowHeight);
 	canv.position(0,0);
 	fr = 30; // Frames per second 
 	frameRate(fr); 
@@ -79,6 +88,14 @@ function draw() {
 	if (gameState == 0) { // Start Screen 
 		
 		// TODO: Display Logo
+		textAlign(CENTER);
+		textSize(32);
+		fill(50);
+		text("Showdown!!", canv.width/2, canv.height/2);
+		textSize(20);
+		fill(30);
+		text("Press Start", canv.width/2, canv.height * 0.6);
+		
 		// TODO: Display 'press start / etc' button or keyboard key 
 		// TODO: catch button press to change game state 
 		
@@ -96,6 +113,13 @@ function draw() {
 	
 	// TODO: Display foreground elements (e.g. tumbleweed)
 	
+}
+
+function keyPressed() {
+	// "start" button 
+	if (gameState == 0) {
+		gameState = 1;
+	}
 }
 
 function windowResized() {
