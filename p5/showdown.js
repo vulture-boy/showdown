@@ -11,9 +11,13 @@ operates in conjunction with xbee input and game environment
 var serialPortName = "COM8"; // Change this as needed
 var shotA = 0;
 var shotB = 0;
-var imgHead[5];
-var imgBody[5];
-var imgLimb[5,4];
+var imgHead = [0,0,0,0,0];
+var imgBody = [0,0,0,0,0];
+var imgLimb = [ [0,0,0,0],
+				[0,0,0,0],
+				[0,0,0,0],
+				[0,0,0,0],
+				[0,0,0,0]];
 
 function preload() {
 	//img = loadImage('assets/thisImage.png');
