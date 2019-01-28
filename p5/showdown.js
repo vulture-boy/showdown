@@ -17,6 +17,9 @@ var canv = 0;
 var playerStatus = [0,0]; // 0 - not hit, 1 - hit 
 var playerScore = [0,0]; // Points
 var playerScoreMax = 1; // Total to victory
+var playerChar = [0,0]; // which character each player is 
+var characters = 5; // Number of characters 
+var timerReady = 20; // Time until Fire is displayed (20 to debug) 
 
 // Images
 var imgHead = [0,0,0,0,0];
@@ -61,9 +64,13 @@ function preload() {
 	imgLimb[4][3] = loadImage('assets/limbs-multi/limb-4m.png');
 }
 
+function resetTimer() {
+	timerReady = 90 + random(120);
+}
+
 function setup() {
 	
-	////// Canvas //////
+	////// Canvas /////
 
 	// Setup the Canvas based on the window dimensions
 	canv = createCanvas(windowWidth, windowHeight);
@@ -77,6 +84,17 @@ function setup() {
 	////// ______ //////
 	
 	gameState = 0; // Determines which 'room' the game is in 
+	resetTimer(); // Prep timer in advance
+	
+	// Random Characters
+	playerChar[0] = round(random(characters - 1));
+	playerChar[1] = round(random(characters - 1));
+	if (playerChar[0] == playerChar[1]) {
+		playerChar[1]++;
+		if (playerChar[1] >= character) {
+			playerChar[1] = 0;
+		}
+	}
 }
 
 function draw() {
@@ -89,12 +107,14 @@ function draw() {
 	fill(225,150,120);
 	rect(0,canv.height*0.8,canv.width,canv.height);
 	
+	// Font Standards
+	textAlign(CENTER);
+	
 	// TODO: Display background elements 
 	
 	if (gameState == 0) { // Start Screen 
 		
 		// TODO: Display Logo
-		textAlign(CENTER);
 		textSize(32);
 		fill(50);
 		text("Showdown!!", canv.width/2, canv.height/2);
@@ -109,26 +129,38 @@ function draw() {
 	
 		// TODO: Characters enter scene?
 		
-		
 		var charPosB = canv.height * 0.6
 		var cS = 0.5;
 		
 		// Player 1
 		var charPosA = canv.width*0.2;
-		var fella = 0;
+		drawCharacter(charPosA,charPosB,cS,playerChar[0]);
 		
-		drawCharacter(charPosA,charPosB,cS,fella);
+		// Player 2
 		charPosA = canv.width*0.7;
-		fella = 3;
-		drawCharacter(charPosA,charPosB,cS,fella);
+		drawCharacter(charPosA,charPosB,cS,playerChar[1]);
+		
+		
 	
 		// TODO: Timed events
+		if (timerReady > 0) {
 			// Display 'ready?'
-			// Wait a random period of time
-			// FIRE!! (listen for gunshot from serial)
-		// TODO: Who shot first? resolution
-		// TODO: play again?
+			textSize(32);
+			fill(50);
+			text("Ready??", canv.width/2, canv.height/2);
+			timerReady--;
 		
+		} else if (playerStatus[0] == 0 || playerStatus[1] == 0) {
+			// FIRE!! (listen for gunshot from serial)
+			textSize(60);
+			fill(20);
+			text("FIRE!!", canv.width/2, canv.height/2);
+		
+		} else {
+			// TODO: Who shot first? resolution
+			text("Debug", canv.width/2, canv.height/2);
+			// TODO: play again?
+		}
 	}
 	
 	// TODO: Display foreground elements (e.g. tumbleweed)
