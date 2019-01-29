@@ -65,7 +65,7 @@ function preload() {
 }
 
 function resetTimer() {
-	timerReady = 90 + random(120);
+	timerReady = 90 + round(random(120));
 }
 
 function setup() {
@@ -91,7 +91,7 @@ function setup() {
 	playerChar[1] = round(random(characters - 1));
 	if (playerChar[0] == playerChar[1]) {
 		playerChar[1]++;
-		if (playerChar[1] >= character) {
+		if (playerChar[1] >= characters) {
 			playerChar[1] = 0;
 		}
 	}
@@ -116,7 +116,6 @@ function draw() {
 		
 		// TODO: Display Logo
 		textSize(32);
-		fill(50);
 		text("Showdown!!", canv.width/2, canv.height/2);
 		textSize(20);
 		fill(30);
@@ -143,22 +142,27 @@ function draw() {
 		
 	
 		// TODO: Timed events
+		//text(timerReady, canv.width/2, canv.height/2);
+		
 		if (timerReady > 0) {
 			// Display 'ready?'
 			textSize(32);
-			fill(50);
 			text("Ready??", canv.width/2, canv.height/2);
 			timerReady--;
 		
-		} else if (playerStatus[0] == 0 || playerStatus[1] == 0) {
+		} else if (playerStatus[0] == 0 && playerStatus[1] == 0) {
 			// FIRE!! (listen for gunshot from serial)
 			textSize(60);
-			fill(20);
+			fill(255,0,0);
 			text("FIRE!!", canv.width/2, canv.height/2);
 		
 		} else {
 			// TODO: Who shot first? resolution
-			text("Debug", canv.width/2, canv.height/2);
+			if (playerStatus[0]) {
+				text("Player 1 Wins!", canv.width/2, canv.height/2);
+			} else {
+				text("Player 2 Wins!", canv.width/2, canv.height/2);
+			}
 			// TODO: play again?
 		}
 	}
@@ -187,6 +191,19 @@ function keyPressed() {
 	// "start" button 
 	if (gameState == 0) {
 		gameState = 1;
+	}
+}
+
+function keyTyped() {
+	
+	// Gunfire
+	if (timerReady == 0 && (playerStatus[0] == 0 && playerStatus[1] == 0)) {
+		if (key === '1') {
+			playerStatus[0] = 1;
+		}
+		if (key === '0') {
+			playerStatus[1] = 1;
+		}
 	}
 }
 
